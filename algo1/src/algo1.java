@@ -100,7 +100,7 @@ public class algo1 {
 
         while(b < e)
         {
-            int m = (b + e) / 2;
+            int m = b + (e - b) / 2;
 
             if(ar.get(m).compareTo(key) < 0)
             {
@@ -129,7 +129,7 @@ public class algo1 {
             }
             else
             {
-                b = m+1;
+                b = m;
             }
         }
         return b;
@@ -153,13 +153,13 @@ public class algo1 {
     {
         int ind = upper_bound(ar, key);
 
-        if (ar.get(ind).compareTo(key) > 0)
+        if (ar.get(ind).compareTo(key) < 0)
         {
-            return ar.size();
+            return ind;
         }
         else
         {
-            return ind;
+            return ar.size();
         }
     }
 
