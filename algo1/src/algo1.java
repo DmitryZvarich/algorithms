@@ -1,8 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -14,12 +11,39 @@ import java.util.stream.Collectors;
  */
 public class algo1<T> {
     public static void main(String[] args) {
+        assert false;
+
+        assert true;
+
         List<Integer> ar = Arrays.asList(1,4,2,7,3,87);
         List<String> ar2 = Arrays.asList("a1","a2","a3","a7","a87");
         List<Integer> ar3 = Arrays.asList(1,4,7,9,87);
         List<Integer> ar4 = Arrays.asList(1,4,7,8,8,8,8,8,8,8,8,9,87);
 
         Integer[] a = {1,4,7,8,8,8,8,8,8,8,8,9,87};
+
+
+        List<Integer> ar5 = Arrays.asList(7,2,9,1,0,43);
+
+        assert ar5.stream().sorted().collect(Collectors.toList()).equals(ar);
+
+
+
+
+
+
+        Integer[] aa = {1,3,5,7};
+        Integer[] bb = {2,4,6,8,9,19,20};
+
+        Arrays.asList(merge(aa,bb)).stream().forEach(System.out::println);
+
+
+
+
+        //System.out.println(insertion_sort(ar5));
+
+
+        //System.out.println(lower_bound(ar4,6));
 
 
         //testFunction(algo1::sort, new Integer[0], new Integer[0]);
@@ -29,10 +53,7 @@ public class algo1<T> {
         Integer[] arg = new Integer[]{6,9,4,2,7};
         sort(arg);
 
-
-        testFunction(algo1::sort, arg, new Integer[]{2,4,6,7,9});
-
-
+        //testFunction(algo1::sort, arg, new Integer[]{2,4,6,7,9});
 
         //System.out.println(min(a, 0, a.length-1));
         //test(algo1::i);
@@ -263,6 +284,94 @@ public class algo1<T> {
             ar[min] = buf;
         }
     }
+
+
+
+
+    private static <T extends Comparable> List<T> insertion_sort(List<T> unsorted)
+    {
+        List<T> sorted = new ArrayList<>();
+        sorted.add(unsorted.get(0));
+
+        for(int i = 1; i < unsorted.size(); i++)
+        {
+            int pos = lower_bound(sorted,unsorted.get(i));
+
+            List<T> tmp = new ArrayList<>();
+
+            if(pos > 0) {
+                tmp.addAll(sorted.subList(0, pos - 1));
+            }
+            tmp.add(unsorted.get(pos));
+            tmp.addAll(sorted.subList(pos,sorted.size()-1));
+
+
+
+            sorted = tmp;
+        }
+
+        return sorted;
+    }
+    //private static <T extends Comparable> int getPos(T[] ar, int e, T key)
+
+
+    private static <T> void merge_sort(T[] ar)
+    {
+        if(ar.length > 1)
+        {
+            int m = ar.length/2;
+
+            Arrays.copyOfRange(ar, 0, m);
+            Arrays.copyOfRange(ar, m+1, ar.length);
+
+        }
+    }
+
+    private static Integer[] merge(Integer[] ar1, Integer[]ar2)
+    {
+        Integer[] result = new Integer[ar1.length+ar2.length];
+        int ind1 = 0;
+        int ind2 = 0;
+        for(int i = 0; i < result.length; i++) {
+            if (ind1 < ar1.length && ind2 < ar2.length) {
+                result[i] = (ar1[ind1] < ar2[ind2]) ? ar1[ind1++] : ar2[ind2++];
+                continue;
+            }
+
+            result[i] = (ind2 == ar2.length) ? ar1[ind1++] : ar2[ind2++];
+        }
+        return result;
+    }
+
+
+    private static void quickSort(Integer[] ar)
+    {
+        int b2 = 0;
+        int e2 = 0;
+
+        while (e2 < ar.length - 1)
+        {
+            b2++;
+            if(ar[e2] < pivot)
+            {
+                swap(ar, b2, e2);
+                b2++;
+            }
+        }
+    }
+
+
+
+
+    private static void swap(Integer[] ar, int i, int j)
+    {
+        Integer tmp = ar[i];
+        ar[i] = ar[j];
+        ar[j] = tmp;
+    }
+
+    private static
+
 
 }
 
